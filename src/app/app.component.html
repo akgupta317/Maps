@@ -1,0 +1,38 @@
+
+
+<div *ngIf=Validusername>
+   
+     {{ "welcome" + Validusername}}
+</div>
+
+<div class="container">
+    <select (change)="onChange($event.target.value)">
+        <option *ngFor="let i of SalaryRange">{{i.Range}}</option>
+    </select>
+    <h1>Search location</h1>
+    <div class="form-group">
+        <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="map">
+                <agm-map [latitude]="indialat" [longitude]="indialog" [zoom]="zoom" [styles]="xxx" [maxZoom]="maxzoom" [minZoom]="minzoom" [streetViewControl]="streetViewControl">
+                    <agm-marker-cluster [imagePath]="'https://googlemaps.github.io/js-marker-clusterer/images/m'">
+                        <agm-marker *ngFor="let Cordinate of Cordinates"
+                                    [iconUrl]="marker_icon"
+                                    [latitude]="Cordinate.lat"
+                                    [longitude]="Cordinate.lng"
+                                    [markerDraggable]="Cordinate.drgabble"
+                                    (dragEnd)="markerDragEnd(Cordinate,$event)">
+                            <agm-info-window>{{Cordinate.name}}</agm-info-window>
+                        </agm-marker>
+                    </agm-marker-cluster>
+                </agm-map>
+            </div>
+        </div>
+    </div>
+</div><!-- /.container -->
+
+<app-login-google></app-login-google>
+
+<app-login></app-login>
